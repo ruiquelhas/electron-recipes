@@ -1,0 +1,59 @@
+{
+  "name": "electron-recipes",
+  "version": "0.0.0",
+  "description": "List of recipes as an electron app",
+  "keywords": [
+    "electron",
+    "react",
+    "recipes",
+    "redux"
+  ],
+  "homepage": "https://github.com/ruiquelhas/electron-recipes#readme",
+  "bugs": {
+    "url": "https://github.com/ruiquelhas/electron-recipes/issues"
+  },
+  "license": "MIT",
+  "author": "Rui Quelhas <rfpquelhas@gmail.com>",
+  "main": "main.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ruiquelhas/electron-recipes.git"
+  },
+  "scripts": {
+    "cleanup": "rm -f dist/index.js",
+    "compile": "browserify -t [ babelify --presets [ react ] ] src/index.js -o dist/index.js",
+    "cover": "istanbul cover node_modules/.bin/_mocha $npm_package_options_mocha",
+    "lint": "standard main.js src/ test/",
+    "start": "npm run compile && electron main.js",
+    "poststart": "npm run cleanup",
+    "test": "npm run compile && mocha $npm_package_options_mocha",
+    "posttest": "npm run cleanup"
+  },
+  "dependencies": {
+    "react": "^15.3.1",
+    "react-dom": "^15.3.1"
+  },
+  "devDependencies": {
+    "babel-preset-react": "^6.11.1",
+    "babel-register": "^6.14.0",
+    "babelify": "^7.3.0",
+    "browserify": "^13.1.0",
+    "electron": "^1.3.4",
+    "enzyme": "^2.4.1",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.0.2",
+    "pre-commit": "^1.1.3",
+    "react-addons-test-utils": "^15.3.1",
+    "spectron": "^3.3.0",
+    "standard": "^8.0.0"
+  },
+  "engine": {
+    "node": ">=6"
+  },
+  "options": {
+    "mocha": "--compilers js:babel-register --timeout 10000 --recursive test"
+  },
+  "pre-commit": [
+    "lint"
+  ]
+}
