@@ -1,9 +1,5 @@
 const React = require('react')
 
-module.exports = React.createClass({
-  render () {
-    return (
-      <h1>Electron Recipes</h1>
-    )
-  }
-})
+module.exports = function ({ text }) {
+  return <h1 className='title'>{text}</h1>
+}
