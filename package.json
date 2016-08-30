@@ -22,12 +22,12 @@
   "scripts": {
     "cleanup": "rm -rf dist",
     "compile": "npm run cleanup && babel src --out-dir dist",
-    "cover": "istanbul cover node_modules/.bin/_mocha $npm_package_options_mocha",
+    "cover": "npm run compile && istanbul cover _mocha -- $npm_package_options_mocha && npm run cleanup",
     "lint": "standard main.js src/ test/",
-    "start": "npm run compile && electron main.js",
     "poststart": "npm run cleanup",
-    "test": "npm run compile && mocha $npm_package_options_mocha",
-    "posttest": "npm run cleanup"
+    "posttest": "npm run cleanup",
+    "start": "npm run compile && electron main.js",
+    "test": "npm run compile && mocha $npm_package_options_mocha"
   },
   "dependencies": {
     "react": "^15.3.1",
