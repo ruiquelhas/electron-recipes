@@ -5,12 +5,12 @@ const assert = require('assert')
 
 describe('recipe actions', () => {
   it('generates a proper action when a recipe is toggled as favorite', () => {
-    const expectedAction = { isSaving: true, type: recipe.TOGGLE_FAVORITE }
-    assert.deepEqual(recipe.toggleFavorite(), expectedAction)
+    const expectedAction = { id: 'foo', isSaving: true, type: recipe.TOGGLE_FAVORITE }
+    assert.deepEqual(recipe.toggleFavorite('foo'), expectedAction)
   })
 
-  it('generates a proper thunk when the application saves the recipe to the database', () => {
-    const thunk = recipe.saveRecipe()
+  it('generates a proper thunk when the application tries to update the recipe favorite flag', () => {
+    const thunk = recipe.updateFavoriteFlag()
     assert.ok(typeof thunk === 'function')
   })
 

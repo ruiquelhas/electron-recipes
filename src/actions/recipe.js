@@ -11,12 +11,23 @@ function confirmRecipeUpdate () {
   }
 }
 
-function saveRecipe (recipe) {
+function toggleFavorite (id) {
+  return {
+    id,
+    isSaving: true,
+    type: TOGGLE_FAVORITE
+  }
+}
+
+function updateFavoriteFlag (id, flag) {
   return function (dispatch) {
     // Give instant UI feedback
-    dispatch(toggleFavorite())
+    dispatch(toggleFavorite(id))
 
-    return storage.put(recipe.id, recipe)
+    return storage.get(id)
+      .then((recipe) => {
+        storage.put(recipe.id, Object.assign({}, recipe, { favorite: flag }))
+      })
       .then(() => {
         return dispatch(confirmRecipeUpdate())
       })
@@ -26,17 +37,10 @@ function saveRecipe (recipe) {
   }
 }
 
-function toggleFavorite () {
-  return {
-    isSaving: true,
-    type: TOGGLE_FAVORITE
-  }
-}
-
 module.exports = {
   CONFIRM_RECIPE_UPDATE,
   TOGGLE_FAVORITE,
   confirmRecipeUpdate,
-  saveRecipe,
-  toggleFavorite
+  toggleFavorite,
+  updateFavoriteFlag
 }

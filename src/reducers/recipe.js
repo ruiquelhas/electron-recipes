@@ -4,6 +4,10 @@ const { CONFIRM_RECIPE_UPDATE, TOGGLE_FAVORITE } = require('../actions/recipe')
 module.exports = function (state = {}, action) {
   switch (action.type) {
     case TOGGLE_FAVORITE:
+      if (state.id !== action.id) {
+        return state
+      }
+
       return Object.assign({}, state, {
         isSaving: true,
         favorite: !state.favorite
