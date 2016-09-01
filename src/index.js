@@ -1,13 +1,10 @@
 const App = require('./components')
 const React = require('react')
 const ReactDOM = require('react-dom')
-const { createStore, applyMiddleware } = require('redux')
 const { recipes } = require('./actions')
 const pkg = require('../package.json')
-const rootReducer = require('./reducers')
-const thunkMiddleware = require('redux-thunk').default
-
-const store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
+const store = require('./state')
+const storage = require('./storage')
 
 const render = () => {
   const state = store.getState()
@@ -26,4 +23,11 @@ const render = () => {
 }
 
 store.subscribe(render)
-store.dispatch(recipes.fetchRecipes())
+
+storage.connect()
+  .then(() => {
+    return store.dispatch(recipes.fetchRecipes())
+  })
+  .catch(error => {
+    throw error
+  })

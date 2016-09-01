@@ -1,16 +1,9 @@
+const { receiveError } = require('./errors')
 const storage = require('../storage')
 
-const RECEIVE_ERROR = 'RECEIVE_ERROR'
 const RECEIVE_RECIPE = 'RECEIVE_RECIPE'
 const RECEIVE_RECIPES = 'RECEIVE_RECIPES'
 const REQUEST_RECIPES = 'REQUEST_RECIPES'
-
-function receiveError (error) {
-  return {
-    type: RECEIVE_ERROR,
-    error
-  }
-}
 
 function requestRecipes () {
   return {
@@ -37,10 +30,7 @@ function fetchRecipes () {
   return function (dispatch) {
     dispatch(requestRecipes())
 
-    return storage.connect(process.env.NODE_ENV)
-      .then((db) => {
-        return storage.hook(db, dispatch, receiveRecipe)
-      })
+    return storage.hook(dispatch, receiveRecipe)
       .then(() => {
         return dispatch(receiveRecipes())
       })
@@ -51,12 +41,10 @@ function fetchRecipes () {
 }
 
 module.exports = {
-  RECEIVE_ERROR,
   RECEIVE_RECIPE,
   RECEIVE_RECIPES,
   REQUEST_RECIPES,
   fetchRecipes,
-  receiveError,
   receiveRecipe,
   receiveRecipes,
   requestRecipes

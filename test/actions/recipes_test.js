@@ -23,13 +23,6 @@ describe('recipes actions', () => {
     assert.ok(actualAction.receivedAt <= Date.now())
   })
 
-  it('generates a proper action when the application throws an error', () => {
-    const error = new Error()
-    const actualAction = recipes.receiveError(error)
-    assert.equal(actualAction.type, recipes.RECEIVE_ERROR)
-    assert.equal(actualAction.error, error)
-  })
-
   it('generates a proper thunk when the application fetches the recipes', () => {
     const thunk = recipes.fetchRecipes()
     assert.ok(typeof thunk === 'function')

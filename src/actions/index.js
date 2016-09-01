@@ -1,3 +1,5 @@
 module.exports = {
-  recipes: require('./recipes')
+  errors: require('./errors'),
+  recipes: require('./recipes'),
+  recipe: require('./recipe')
 }
