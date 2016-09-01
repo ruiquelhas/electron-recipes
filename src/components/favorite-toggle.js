@@ -2,21 +2,22 @@ const React = require('react')
 const { recipe } = require('../actions')
 const store = require('../state')
 
-function FavoriteToggle (props) {
+function FavoriteToggle ({ id, favorite }) {
   return (
     <div className='favouriteToggleContainer'>
       <input
         className='favoriteToggle'
         type='checkbox'
-        checked={props.recipe.favorite}
-        onChange={() => store.dispatch(recipe.saveRecipe(Object.assign({}, props.recipe, { favorite: !props.recipe.favorite })))}
+        checked={favorite ? 'checked' : ''}
+        onChange={(ev) => store.dispatch(recipe.updateFavoriteFlag(id, ev.target.checked))}
       /> Favorite
     </div>
   )
 }
 
 FavoriteToggle.propTypes = {
-  recipe: React.PropTypes.object.isRequired
+  id: React.PropTypes.string.isRequired,
+  favorite: React.PropTypes.bool
 }
 
 module.exports = FavoriteToggle
