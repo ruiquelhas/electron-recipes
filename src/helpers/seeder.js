@@ -5,13 +5,13 @@ const fixtures = require('./fixtures')
 
 const recipes = fixtures.createRecipes(10)
 
-function save (recipe) {
-  return storage.put(recipe.id, recipe)
+function save (db, recipe) {
+  return storage.put(db, recipe.id, recipe)
 }
 
-storage.connect()
-  .then(() => {
-    return Promise.all(recipes.map(recipe => save(recipe)))
+storage.connect(process.env.NODE_ENV)
+  .then((db) => {
+    return Promise.all(recipes.map(recipe => save(db, recipe)))
   })
   .then(() => {
     console.log('Database was successfuly seeded.\n')
