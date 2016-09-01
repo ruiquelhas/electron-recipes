@@ -23,12 +23,12 @@ describe('electron-recipes', function () {
 
   afterEach(() => {
     if (!app || !app.isRunning()) {
-      return storage.clean(process.env.NODE_ENV)
+      return storage.clean()
     }
 
     return app.stop()
       .then(() => {
-        return storage.clean(process.env.NODE_ENV)
+        return storage.clean()
       })
   })
 
@@ -51,14 +51,14 @@ describe('electron-recipes', function () {
     let recipe
 
     beforeEach(() => {
-      return storage.connect(process.env.NODE_ENV)
-        .then((db) => {
+      return storage.connect()
+        .then(() => {
           recipe = fixtures.createRecipe()
-          return storage.put(db, recipe.id, recipe)
+          return storage.put(recipe.id, recipe)
         })
-        .then((db) => {
+        .then(() => {
           // The mocha process must release the database lock.
-          return storage.disconnect(db)
+          return storage.disconnect()
         })
         .then(() => {
           return app.start()
@@ -79,6 +79,50 @@ describe('electron-recipes', function () {
         .getText('.recipeDescription')
         .then(text => {
           assert.equal(text, recipe.description)
+        })
+    })
+  })
+
+  describe('toggle as favorite', () => {
+    let recipe
+
+    beforeEach(() => {
+      return storage.connect()
+        .then(() => {
+          recipe = fixtures.createRecipe({ favorite: false })
+          return storage.put(recipe.id, recipe)
+        })
+        .then(() => {
+          // The mocha process must release the database lock.
+          return storage.disconnect()
+        })
+        .then(() => {
+          return app.start()
+        })
+    })
+
+    it('update a recipe in the database when the user clicks on the "favorite" checkbox', () => {
+      let actualRecipe
+
+      return app.client
+        .waitUntilWindowLoaded()
+        .click('.favoriteToggle')
+        .then(() => {
+          return app.stop()
+        })
+        .then(() => {
+          return storage.connect()
+        })
+        .then(() => {
+          return storage.get(recipe.id)
+        })
+        .then(recipe => {
+          actualRecipe = recipe
+          // The mocha process must release the database lock.
+          return storage.disconnect()
+        })
+        .then(() => {
+          assert.equal(actualRecipe.favorite, !recipe.favorite)
         })
     })
   })

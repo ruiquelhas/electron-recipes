@@ -1,6 +1,9 @@
-const { REQUEST_RECIPES, RECEIVE_RECIPE, RECEIVE_RECIPES, RECEIVE_ERROR } = require('../actions/recipes')
+const { RECEIVE_ERROR } = require('../actions/errors')
+const { RECEIVE_RECIPE, RECEIVE_RECIPES, REQUEST_RECIPES } = require('../actions/recipes')
+const { TOGGLE_FAVORITE } = require('../actions/recipe')
+const recipe = require('./recipe')
 
-module.exports = function (state = { isFetching: false, items: [] }, action) {
+module.exports = function (state = { isFetching: false, isUpdating: false, items: [] }, action) {
   switch (action.type) {
     case REQUEST_RECIPES:
       return Object.assign({}, state, {
@@ -20,6 +23,11 @@ module.exports = function (state = { isFetching: false, items: [] }, action) {
       return Object.assign({}, state, {
         isFetching: false,
         error: action.error
+      })
+    case TOGGLE_FAVORITE:
+      return Object.assign({}, state, {
+        isUpdating: true,
+        items: state.items.map(r => recipe(r, action))
       })
     default:
       return state

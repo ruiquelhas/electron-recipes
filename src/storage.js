@@ -1,11 +1,14 @@
 const levelup = require('levelup')
 const leveldown = require('leveldown')
-
 const path = require('path')
 
-function clean (name = 'default') {
-  const location = path.join(__dirname, '..', 'db', name)
+// Database.
+const name = process.env.NODE_ENV || 'default'
+const location = path.join(__dirname, '..', 'db', name)
 
+let database
+
+function clean () {
   return new Promise((resolve, reject) => {
     leveldown.destroy(location, (error) => {
       if (error) {
@@ -17,27 +20,31 @@ function clean (name = 'default') {
   })
 }
 
-function connect (name = 'default') {
-  const location = path.join(__dirname, '..', 'db', name)
-
+function connect () {
   return new Promise((resolve, reject) => {
-    levelup(location, { db: leveldown, valueEncoding: 'json' }, (err, db) => {
-      if (err) {
-        return reject(err)
+    if (database && database.isOpen()) {
+      return resolve()
+    }
+
+    levelup(location, { db: leveldown, valueEncoding: 'json' }, (error, db) => {
+      if (error) {
+        return reject(error)
       }
 
-      return resolve(db)
+      database = db
+
+      return resolve()
     })
   })
 }
 
-function disconnect (db) {
+function disconnect () {
   return new Promise((resolve, reject) => {
-    if (!db || typeof db.close !== 'function') {
-      return resolve()
+    if (!database || typeof database.close !== 'function') {
+      return reject(new Error('connection not available'))
     }
 
-    db.close((error) => {
+    database.close((error) => {
       if (error) {
         return reject(error)
       }
@@ -47,13 +54,29 @@ function disconnect (db) {
   })
 }
 
-function hook (db, dispatcher, action) {
+function get (key) {
   return new Promise((resolve, reject) => {
-    if (!db || typeof db.createValueStream !== 'function') {
-      return resolve()
+    if (!database || typeof database.createValueStream !== 'function') {
+      return reject(new Error('connection not available'))
     }
 
-    db.createValueStream()
+    database.get(key, (error, value) => {
+      if (error) {
+        return reject(error)
+      }
+
+      return resolve(value)
+    })
+  })
+}
+
+function hook (dispatcher, action) {
+  return new Promise((resolve, reject) => {
+    if (!database || typeof database.createValueStream !== 'function') {
+      return reject(new Error('connection not available'))
+    }
+
+    database.createValueStream()
       .on('data', (value) => {
         return dispatcher(action(value))
       })
@@ -61,23 +84,23 @@ function hook (db, dispatcher, action) {
         return reject(error)
       })
       .on('end', () => {
-        return resolve(db)
+        return resolve()
       })
   })
 }
 
-function put (db, key, data) {
+function put (key, data) {
   return new Promise((resolve, reject) => {
-    if (!db || typeof db.put !== 'function') {
-      return resolve()
+    if (!database || typeof database.put !== 'function') {
+      return reject(new Error('connection not available'))
     }
 
-    db.put(key, data, (error) => {
+    database.put(key, data, (error) => {
       if (error) {
         return reject(error)
       }
 
-      return resolve(db)
+      return resolve()
     })
   })
 }
@@ -86,6 +109,7 @@ module.exports = {
   clean,
   connect,
   disconnect,
+  get,
   hook,
   put
 }
