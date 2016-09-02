@@ -8,7 +8,7 @@ const location = path.join(__dirname, '..', 'db', name)
 
 let database
 
-function clean () {
+function destroy () {
   return new Promise((resolve, reject) => {
     leveldown.destroy(location, (error) => {
       if (error) {
@@ -106,7 +106,7 @@ function put (key, data) {
 }
 
 module.exports = {
-  clean,
+  destroy,
   connect,
   disconnect,
   get,
