@@ -1,7 +1,7 @@
 const React = require('react')
 const Recipe = require('./recipe')
 
-function RecipeList ({ recipes = [] }) {
+function RecipeList ({ recipes = [], onFavoriteToggleClick }) {
   const items = recipes.map(({ description, favorite, id, ingredients, level, title }) => {
     return <Recipe
       description={description}
@@ -11,6 +11,7 @@ function RecipeList ({ recipes = [] }) {
       key={id}
       level={level}
       title={title}
+      onFavoriteToggleClick={onFavoriteToggleClick}
     />
   })
 

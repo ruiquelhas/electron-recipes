@@ -12,7 +12,7 @@ module.exports = function (state = { isFetching: false, items: [] }, action) {
     case RECEIVE_RECIPE:
       return Object.assign({}, state, {
         isFetching: true,
-        items: state.items.concat(action.recipe),
+        items: [...state.items, action.recipe],
         lastUpdated: action.receivedAt
       })
     case RECEIVE_RECIPES:

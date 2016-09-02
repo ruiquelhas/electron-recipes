@@ -1,15 +1,14 @@
 const React = require('react')
-const { recipe } = require('../actions')
-const store = require('../store')
 
-function FavoriteToggle ({ id, favorite }) {
+function FavoriteToggle ({ id, favorite, onFavoriteToggleClick }) {
   return (
     <div className='favouriteToggleContainer'>
       <input
         className='favoriteToggle'
         type='checkbox'
-        checked={favorite ? 'checked' : ''}
-        onChange={(ev) => store.dispatch(recipe.updateFavoriteFlag(id, ev.target.checked))}
+        defaultChecked={favorite}
+        value={id}
+        onClick={onFavoriteToggleClick}
       /> Favorite
     </div>
   )

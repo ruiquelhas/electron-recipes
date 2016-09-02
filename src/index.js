@@ -1,7 +1,7 @@
 const App = require('./components')
 const React = require('react')
 const ReactDOM = require('react-dom')
-const { recipes } = require('./actions')
+const { recipe, recipes } = require('./actions')
 const pkg = require('../package.json')
 const store = require('./store')
 const database = require('./database')
@@ -17,6 +17,9 @@ const render = () => {
     <App
       title={`${pkg.name} (v${pkg.version})`}
       recipes={state.recipes}
+      onFavoriteToggleClick={(event) => {
+        store.dispatch(recipe.updateFavoriteFlag(event.target.value, event.target.checked))
+      }}
     />,
     document.getElementById('root')
   )
