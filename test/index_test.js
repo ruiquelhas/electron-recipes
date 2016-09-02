@@ -53,7 +53,7 @@ describe('electron-recipes', function () {
     let recipe
 
     beforeEach(() => {
-      return seeder.single({ favorite: false })
+      return seeder.single({ favorite: false, difficulty: 2 })
         .then(instance => {
           recipe = instance
         })
@@ -77,6 +77,15 @@ describe('electron-recipes', function () {
           .getText('.recipeDescription')
           .then(text => {
             assert.equal(text, recipe.description)
+          })
+      })
+
+      it('displays the level of the existing recipes', () => {
+        return app.client
+          .waitUntilWindowLoaded()
+          .getText('.recipeLevel')
+          .then(text => {
+            assert.equal(text, 'Easy')
           })
       })
     })

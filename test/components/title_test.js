@@ -12,7 +12,7 @@ describe('<Title />', () => {
   })
 
   it('renders an element with the proper class', () => {
-    const wrapper = enzyme.shallow(<Title />)
+    const wrapper = enzyme.shallow(<Title text='foo' />)
     assert.ok(wrapper.hasClass('title'))
   })
 

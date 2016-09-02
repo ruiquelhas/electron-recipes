@@ -29,8 +29,8 @@ describe('<Recipe />', () => {
   })
 
   it('renders the difficulty of the recipe', () => {
-    const wrapper = enzyme.shallow(<Recipe id='foo' difficulty={1} />)
-    assert.equal(wrapper.find('.recipeDifficulty').text(), 1)
+    const wrapper = enzyme.shallow(<Recipe id='foo' level='foo' />)
+    assert.equal(wrapper.find('.recipeLevel').text(), 'foo')
   })
 
   it('renders an <IngredientList /> component', () => {

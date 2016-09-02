@@ -38,7 +38,7 @@ describe('<IngredientList />', () => {
   })
 
   it('renders the list components with the correct React key', () => {
-    const wrapper = enzyme.shallow(<IngredientList parent='foo' ingredients={[{ id: 'bar' }]} />)
+    const wrapper = enzyme.shallow(<IngredientList parent='foo' ingredients={['bar']} />)
     assert.equal(wrapper.find('.ingredientList').childAt(0).key(), 'foo-0')
   })
 })

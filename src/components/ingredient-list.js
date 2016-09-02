@@ -1,7 +1,7 @@
 const React = require('react')
 const Ingredient = require('./ingredient')
 
-function RecipeList ({ parent, ingredients = [] }) {
+function IngredientList ({ parent, ingredients = [] }) {
   const items = ingredients.map((name, index) => {
     return <Ingredient key={`${parent}-${index}`} name={name} />
   })
@@ -14,9 +14,9 @@ function RecipeList ({ parent, ingredients = [] }) {
   )
 }
 
-RecipeList.propTypes = {
+IngredientList.propTypes = {
   ingredients: React.PropTypes.array,
   parent: React.PropTypes.string.isRequired
 }
 
-module.exports = RecipeList
+module.exports = IngredientList

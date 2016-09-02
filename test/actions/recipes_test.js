@@ -23,6 +23,11 @@ describe('recipes actions', () => {
     assert.ok(actualAction.receivedAt <= Date.now())
   })
 
+  it('generates a proper action when a recipe difficulty is translated to level', () => {
+    const expectedAction = { type: recipes.DISPLAY_RECIPE_LEVEL }
+    assert.deepEqual(recipes.displayRecipeLevel(), expectedAction)
+  })
+
   it('generates a proper thunk when the application fetches the recipes', () => {
     const thunk = recipes.fetchRecipes()
     assert.ok(typeof thunk === 'function')

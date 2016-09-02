@@ -16,7 +16,7 @@ const render = () => {
   ReactDOM.render(
     <App
       title={`${pkg.name} (v${pkg.version})`}
-      recipes={state.recipes.items}
+      recipes={state.recipes}
     />,
     document.getElementById('root')
   )

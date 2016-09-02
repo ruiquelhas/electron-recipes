@@ -1,7 +1,10 @@
 const { RECEIVE_ERROR } = require('../actions/errors')
 const { CONFIRM_RECIPE_UPDATE, TOGGLE_FAVORITE } = require('../actions/recipe')
+const { DISPLAY_RECIPE_LEVEL } = require('../actions/recipes')
 
-module.exports = function (state = {}, action) {
+const levels = ['Very Easy', 'Easy', 'Average', 'Hard', 'Very Hard']
+
+module.exports = function (state = { isSaving: false }, action) {
   switch (action.type) {
     case TOGGLE_FAVORITE:
       if (state.id !== action.id) {
@@ -15,6 +18,10 @@ module.exports = function (state = {}, action) {
     case CONFIRM_RECIPE_UPDATE:
       return Object.assign({}, state, {
         isSaving: false
+      })
+    case DISPLAY_RECIPE_LEVEL:
+      return Object.assign({}, state, {
+        level: levels[state.difficulty - 1]
       })
     case RECEIVE_ERROR:
       return Object.assign({}, state, {
