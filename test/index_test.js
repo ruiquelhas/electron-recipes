@@ -1,7 +1,8 @@
 /* global afterEach, before, beforeEach, describe, it */
 
 const { Application } = require('spectron')
-const { database, seeder } = require('../src/helpers')
+const { seeder } = require('../src/helpers')
+const db = require('../src/database')
 const assert = require('assert')
 const path = require('path')
 const pkg = require('../package.json')
@@ -19,17 +20,17 @@ describe('electron-recipes', function () {
       waitTimeout: 20000
     })
 
-    return database.clean()
+    return db.destroy()
   })
 
   afterEach(() => {
     if (!app || !app.isRunning()) {
-      return database.clean()
+      return db.destroy()
     }
 
     return app.stop()
       .then(() => {
-        return database.clean()
+        return db.destroy()
       })
   })
 

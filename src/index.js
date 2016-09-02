@@ -3,8 +3,8 @@ const React = require('react')
 const ReactDOM = require('react-dom')
 const { recipes } = require('./actions')
 const pkg = require('../package.json')
-const store = require('./state')
-const storage = require('./storage')
+const store = require('./store')
+const database = require('./database')
 
 const render = () => {
   const state = store.getState()
@@ -24,7 +24,7 @@ const render = () => {
 
 store.subscribe(render)
 
-storage.connect()
+database.connect()
   .then(() => {
     return store.dispatch(recipes.fetchRecipes())
   })

@@ -1,5 +1,5 @@
 const { receiveError } = require('./errors')
-const storage = require('../storage')
+const db = require('../database')
 
 const CONFIRM_RECIPE_UPDATE = 'CONFIRM_RECIPE_UPDATE'
 const TOGGLE_FAVORITE = 'TOGGLE_FAVORITE'
@@ -24,9 +24,9 @@ function updateFavoriteFlag (id, flag) {
     // Give instant UI feedback
     dispatch(toggleFavorite(id))
 
-    return storage.get(id)
+    return db.get(id)
       .then((recipe) => {
-        storage.put(recipe.id, Object.assign({}, recipe, { favorite: flag }))
+        db.put(recipe.id, Object.assign({}, recipe, { favorite: flag }))
       })
       .then(() => {
         return dispatch(confirmRecipeUpdate())

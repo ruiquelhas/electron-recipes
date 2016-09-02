@@ -23,7 +23,7 @@
     "cleanup": "rm -rf dist",
     "compile": "npm run cleanup && babel src --out-dir dist",
     "cover": "npm run compile && istanbul cover _mocha -- $npm_package_options_mocha && npm run cleanup",
-    "lint": "standard main.js src/ test/",
+    "lint": "standard main.js src/* test/*",
     "poststart": "npm run cleanup",
     "posttest": "npm run cleanup",
     "prepublish": "chmod -R +x ./bin/",
@@ -38,6 +38,7 @@
     "react-dom": "^15.3.1",
     "react-redux": "^4.4.5",
     "redux": "^3.5.2",
+    "redux-logger": "^2.6.1",
     "redux-thunk": "^2.1.0"
   },
   "devDependencies": {

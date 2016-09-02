@@ -1,13 +1,13 @@
-const storage = require('../storage')
+const db = require('../database')
 const fixtures = require('./fixtures')
 
 function run (recipes) {
-  return storage.connect()
+  return db.connect()
     .then(() => {
-      return Promise.all(recipes.map(recipe => storage.put(recipe.id, recipe)))
+      return Promise.all(recipes.map(recipe => db.put(recipe.id, recipe)))
     })
     .then(() => {
-      return storage.disconnect()
+      return db.disconnect()
     })
 }
 
