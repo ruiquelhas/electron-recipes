@@ -1,21 +1,35 @@
-#!/usr/bin/env node
-
 const storage = require('../storage')
 const fixtures = require('./fixtures')
 
-const recipes = fixtures.createRecipes(10)
-
-function save (recipe) {
-  return storage.put(recipe.id, recipe)
+function run (recipes) {
+  return storage.connect()
+    .then(() => {
+      return Promise.all(recipes.map(recipe => storage.put(recipe.id, recipe)))
+    })
+    .then(() => {
+      return storage.disconnect()
+    })
 }
 
-storage.connect()
-  .then((db) => {
-    return Promise.all(recipes.map(save))
-  })
-  .then(() => {
-    console.log('Database was successfuly seeded.\n')
-  })
-  .catch(error => {
-    throw error
-  })
+function random (count = 10) {
+  const recipes = fixtures.createRecipes(count)
+
+  return run(recipes)
+    .then(() => {
+      return Promise.resolve(recipes)
+    })
+}
+
+function single (options) {
+  const recipe = fixtures.createRecipe(options)
+
+  return run([recipe])
+    .then(() => {
+      return Promise.resolve(recipe)
+    })
+}
+
+module.exports = {
+  random,
+  single
+}

@@ -1,0 +1,11 @@
+#!/usr/bin/env node
+
+const { seeder } = require('../src/helpers')
+
+seeder.random(process.argv[2])
+  .then(() => {
+    console.log('Database was successfuly seeded.\n')
+  })
+  .catch(error => {
+    throw error
+  })

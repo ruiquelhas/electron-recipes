@@ -26,7 +26,8 @@
     "lint": "standard main.js src/ test/",
     "poststart": "npm run cleanup",
     "posttest": "npm run cleanup",
-    "seed": "node ./src/helpers/seeder.js",
+    "prepublish": "chmod -R +x ./bin/",
+    "seed": "./bin/seed",
     "start": "npm run compile && ./node_modules/.bin/electron main.js",
     "test": "npm run compile && NODE_ENV=test mocha $npm_package_options_mocha"
   },
@@ -59,7 +60,7 @@
     "node": ">=6"
   },
   "options": {
-    "mocha": "--compilers js:babel-register --timeout 10000 --recursive test"
+    "mocha": "--compilers js:babel-register --timeout 25000 --recursive test"
   },
   "pre-commit": [
     "lint"
