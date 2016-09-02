@@ -1,6 +1,7 @@
 const { receiveError } = require('./errors')
 const db = require('../database')
 
+const DISPLAY_RECIPE_LEVEL = 'DISPLAY_RECIPE_LEVEL'
 const RECEIVE_RECIPE = 'RECEIVE_RECIPE'
 const RECEIVE_RECIPES = 'RECEIVE_RECIPES'
 const REQUEST_RECIPES = 'REQUEST_RECIPES'
@@ -26,24 +27,33 @@ function receiveRecipes () {
   }
 }
 
+function displayRecipeLevel () {
+  return {
+    type: DISPLAY_RECIPE_LEVEL
+  }
+}
+
 function fetchRecipes () {
   return function (dispatch) {
     dispatch(requestRecipes())
 
     return db.hook(dispatch, receiveRecipe)
       .then(() => {
-        return dispatch(receiveRecipes())
+        dispatch(displayRecipeLevel())
+        dispatch(receiveRecipes())
       })
       .catch(error => {
-        return dispatch(receiveError(error))
+        dispatch(receiveError(error))
       })
   }
 }
 
 module.exports = {
+  DISPLAY_RECIPE_LEVEL,
   RECEIVE_RECIPE,
   RECEIVE_RECIPES,
   REQUEST_RECIPES,
+  displayRecipeLevel,
   fetchRecipes,
   receiveRecipe,
   receiveRecipes,

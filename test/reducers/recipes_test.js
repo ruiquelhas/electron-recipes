@@ -1,7 +1,7 @@
 /* global describe, it */
 
 const { RECEIVE_ERROR, RECEIVE_RECIPE, RECEIVE_RECIPES, REQUEST_RECIPES } = require('../../src/actions/recipes')
-const { TOGGLE_FAVORITE } = require('../../src/actions/recipe')
+const { TOGGLE_FAVORITE, DISPLAY_RECIPE_LEVEL } = require('../../src/actions/recipe')
 const recipes = require('../../src/reducers/recipes')
 const assert = require('assert')
 const deepFreeze = require('deep-freeze')
@@ -46,6 +46,17 @@ describe('recipes reducer', () => {
     const stateBefore = { isFetching: false, items: [{ id: 'foo', favorite: false }] }
     const action = { id: 'foo', type: TOGGLE_FAVORITE }
     const stateAfter = { isFetching: false, items: [{ id: 'foo', favorite: true, isSaving: true }] }
+
+    deepFreeze(stateBefore)
+    deepFreeze(action)
+
+    assert(recipes(stateBefore, action), stateAfter)
+  })
+
+  it('returns a new state when a recipe difficulty is translated to level', () => {
+    const stateBefore = { items: [{ difficulty: 1 }] }
+    const action = { type: DISPLAY_RECIPE_LEVEL }
+    const stateAfter = { items: [{ difficulty: 1, level: 'Very Easy' }] }
 
     deepFreeze(stateBefore)
     deepFreeze(action)

@@ -18,19 +18,20 @@ describe('<RecipeList />', () => {
   })
 
   it('renders an element containing the proper component types', () => {
-    const recipe = { description: 'bar', difficulty: 2, favorite: false, id: 'foo', ingredients: [], title: 'baz' }
+    const recipe = { description: 'bar', level: 'qux', favorite: false, id: 'foo', ingredients: [], title: 'baz' }
     const wrapper = enzyme.shallow(<RecipeList recipes={[recipe]} />)
     wrapper.children().forEach(component => assert.equal(component.type(), Recipe))
   })
 
   it('renders the list components with the correct properties', () => {
-    const recipe = { description: 'bar', difficulty: 2, favorite: false, id: 'foo', ingredients: [], title: 'baz' }
+    const recipe = { description: 'bar', level: 'qux', favorite: false, id: 'foo', ingredients: [], title: 'baz' }
     const wrapper = enzyme.shallow(<RecipeList recipes={[recipe]} />)
     assert.deepEqual(wrapper.childAt(0).props(), recipe)
   })
 
   it('renders the list components with the correct React key', () => {
-    const wrapper = enzyme.shallow(<RecipeList recipes={[{ id: 'foo' }]} />)
+    const recipe = { description: 'bar', level: 'qux', favorite: false, id: 'foo', ingredients: [], title: 'baz' }
+    const wrapper = enzyme.shallow(<RecipeList recipes={[recipe]} />)
     assert.equal(wrapper.childAt(0).key(), 'foo')
   })
 })

@@ -6,7 +6,7 @@ module.exports = function ({ title, recipes }) {
   return (
     <div>
       <Title text={title} />
-      <RecipeList recipes={recipes} />
+      <RecipeList recipes={recipes.items} />
     </div>
   )
 }
