@@ -17,6 +17,7 @@ const render = () => {
     <App
       title={`${pkg.name} (v${pkg.version})`}
       recipes={state.recipes}
+      filters={state.filters}
     />,
     document.getElementById('root')
   )

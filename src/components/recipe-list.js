@@ -15,7 +15,7 @@ function RecipeList ({ recipes = [] }) {
     />
   })
 
-  return <ul className='recipeList' style={{ listStyleType: 'none' }}>{items}</ul>
+  return <ul className='recipeList' style={{ listStyleType: 'none', margin: 0, padding: 0 }}>{items}</ul>
 }
 
 RecipeList.propTypes = {
