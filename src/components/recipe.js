@@ -2,7 +2,7 @@ const FavoriteToggle = require('./favorite-toggle')
 const IngredientList = require('./ingredient-list')
 const React = require('react')
 
-function Recipe ({ description, favorite, id, ingredients, level, title }) {
+function Recipe ({ description, favorite, id, ingredients, level, title, onFavoriteToggleClick }) {
   return (
     <li className='recipe' style={{ border: '1px solid black', margin: '1em', padding: '1em' }}>
       <div className='recipeDetails'>
@@ -13,7 +13,7 @@ function Recipe ({ description, favorite, id, ingredients, level, title }) {
           <span>Level: </span>
           <span className='recipeLevel'>{level}</span>
         </p>
-        <FavoriteToggle id={id} favorite={favorite} />
+        <FavoriteToggle id={id} favorite={favorite} onFavoriteToggleClick={onFavoriteToggleClick} />
       </div>
     </li>
   )

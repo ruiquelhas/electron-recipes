@@ -5,6 +5,7 @@ const Recipe = require('../../src/components/recipe')
 const RecipeList = require('../../src/components/recipe-list')
 const assert = require('assert')
 const enzyme = require('enzyme')
+const noop = require('lodash.noop')
 
 describe('<RecipeList />', () => {
   it('renders a `ul` element', () => {
@@ -25,8 +26,9 @@ describe('<RecipeList />', () => {
 
   it('renders the list components with the correct properties', () => {
     const recipe = { description: 'bar', level: 'qux', favorite: false, id: 'foo', ingredients: [], title: 'baz' }
-    const wrapper = enzyme.shallow(<RecipeList recipes={[recipe]} />)
-    assert.deepEqual(wrapper.childAt(0).props(), recipe)
+    const wrapper = enzyme.shallow(<RecipeList recipes={[recipe]} onFavoriteToggleClick={noop} />)
+    const expectedProperties = Object.assign({}, recipe, { onFavoriteToggleClick: noop })
+    assert.deepEqual(wrapper.childAt(0).props(), expectedProperties)
   })
 
   it('renders the list components with the correct React key', () => {
