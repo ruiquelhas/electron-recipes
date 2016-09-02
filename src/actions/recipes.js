@@ -1,5 +1,5 @@
 const { receiveError } = require('./errors')
-const storage = require('../storage')
+const db = require('../database')
 
 const RECEIVE_RECIPE = 'RECEIVE_RECIPE'
 const RECEIVE_RECIPES = 'RECEIVE_RECIPES'
@@ -30,7 +30,7 @@ function fetchRecipes () {
   return function (dispatch) {
     dispatch(requestRecipes())
 
-    return storage.hook(dispatch, receiveRecipe)
+    return db.hook(dispatch, receiveRecipe)
       .then(() => {
         return dispatch(receiveRecipes())
       })
