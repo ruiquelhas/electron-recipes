@@ -1,5 +1,6 @@
 /* global describe, it */
 
+const FavoriteFilterTagList = require('../../src/components/favorite-filter-tag-list')
 const React = require('react')
 const RecipeList = require('../../src/components/recipe-list')
 const RecipesApp = require('../../src/components')
@@ -23,14 +24,19 @@ describe('<RecipesApp />', () => {
     assert.equal(wrapper.childAt(0).prop('text'), 'foo')
   })
 
+  it('renders a <FavoriteFilterTagList /> component as the second element', () => {
+    const wrapper = enzyme.shallow(<RecipesApp title='foo' recipes={{}} />)
+    assert.equal(wrapper.childAt(1).type(), FavoriteFilterTagList)
+  })
+
   it('renders a <RecipeList /> component as the second element', () => {
     const wrapper = enzyme.shallow(<RecipesApp title='foo' recipes={{}} />)
-    assert.equal(wrapper.childAt(1).type(), RecipeList)
+    assert.equal(wrapper.childAt(2).type(), RecipeList)
   })
 
   it('renders the <RecipeList /> component with the correct properties', () => {
     const recipes = { items: [{ foo: 'bar' }] }
     const wrapper = enzyme.shallow(<RecipesApp title='foo' recipes={recipes} />)
-    assert.equal(wrapper.childAt(1).prop('recipes'), recipes.items)
+    assert.equal(wrapper.childAt(2).prop('recipes'), recipes.items)
   })
 })

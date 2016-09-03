@@ -116,5 +116,39 @@ describe('electron-recipes', function () {
           })
       })
     })
+
+    describe('filter list of recipes by favorite flag', () => {
+      it('applies all filters for the existing recipe', () => {
+        return app.client
+          .waitUntilWindowLoaded()
+          .elements('.favoriteFilterTagList > a')
+          .then(elements => {
+            const filters = elements.value
+
+            assert.equal(filters.length, 3)
+
+            return app.client
+              .waitUntilWindowLoaded()
+              // SHOW_ALL
+              .elementIdClick(filters[0].ELEMENT)
+              .elements('.recipe')
+              .then(elements => {
+                assert.equal(elements.value.length, 1)
+              })
+              // SHOW_FAVORITES
+              .elementIdClick(filters[1].ELEMENT)
+              .elements('.recipe')
+              .then(elements => {
+                assert.equal(elements.value.length, 0)
+              })
+              // SHOW_REGULARS
+              .elementIdClick(filters[2].ELEMENT)
+              .elements('.recipe')
+              .then(elements => {
+                assert(elements.value.length, 1)
+              })
+          })
+      })
+    })
   })
 })

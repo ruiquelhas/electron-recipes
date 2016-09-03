@@ -4,7 +4,7 @@ const React = require('react')
 
 function Recipe ({ description, favorite, id, isSaving, ingredients, level, title }) {
   return (
-    <li className='recipe' style={{ border: '1px solid black', margin: '1em', padding: '1em' }}>
+    <li className='recipe' style={{ border: '1px solid black', marginBottom: '1em', marginTop: '1em', padding: '1em' }}>
       <div className='recipeDetails'>
         <h2 className='recipeTitle'>{title}</h2>
         <p className='recipeDescription'>{description}</p>
