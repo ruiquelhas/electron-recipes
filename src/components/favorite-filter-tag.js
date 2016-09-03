@@ -1,5 +1,5 @@
 const React = require('react')
-const { filters } = require('../actions')
+const { filters } = require('../store/actions')
 const store = require('../store')
 
 function FavoriteFilterTag ({ filter, children }) {
