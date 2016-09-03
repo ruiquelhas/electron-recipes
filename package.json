@@ -61,7 +61,7 @@
     "node": ">=6"
   },
   "options": {
-    "mocha": "--compilers js:babel-register --timeout 25000 --recursive test"
+    "mocha": "--compilers js:babel-register --timeout 10000 --recursive test"
   },
   "pre-commit": [
     "lint"
