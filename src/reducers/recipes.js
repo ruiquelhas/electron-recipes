@@ -1,6 +1,6 @@
 const { RECEIVE_ERROR } = require('../actions/errors')
 const { DISPLAY_RECIPE_LEVEL, RECEIVE_RECIPE, RECEIVE_RECIPES, REQUEST_RECIPES } = require('../actions/recipes')
-const { TOGGLE_FAVORITE } = require('../actions/recipe')
+const { CONFIRM_RECIPE_UPDATE, TOGGLE_FAVORITE } = require('../actions/recipe')
 const recipe = require('./recipe')
 
 module.exports = function (state = { isFetching: false, items: [] }, action) {
@@ -12,7 +12,7 @@ module.exports = function (state = { isFetching: false, items: [] }, action) {
     case RECEIVE_RECIPE:
       return Object.assign({}, state, {
         isFetching: true,
-        items: state.items.concat(action.recipe),
+        items: [...state.items, action.recipe],
         lastUpdated: action.receivedAt
       })
     case RECEIVE_RECIPES:
@@ -26,6 +26,7 @@ module.exports = function (state = { isFetching: false, items: [] }, action) {
       })
     case TOGGLE_FAVORITE:
     case DISPLAY_RECIPE_LEVEL:
+    case CONFIRM_RECIPE_UPDATE:
       return Object.assign({}, state, {
         items: state.items.map(r => {
           return recipe(r, action)

@@ -2,11 +2,12 @@ const React = require('react')
 const Recipe = require('./recipe')
 
 function RecipeList ({ recipes = [] }) {
-  const items = recipes.map(({ description, favorite, id, ingredients, level, title }) => {
+  const items = recipes.map(({ description, favorite, id, isSaving, ingredients, level, title }) => {
     return <Recipe
       description={description}
       favorite={favorite}
       id={id}
+      isSaving={isSaving}
       ingredients={ingredients}
       key={id}
       level={level}

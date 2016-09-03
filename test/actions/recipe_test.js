@@ -15,7 +15,7 @@ describe('recipe actions', () => {
   })
 
   it('generates a proper action when a recipe is updated in the database', () => {
-    const expectedAction = { isSaving: false, type: recipe.CONFIRM_RECIPE_UPDATE }
-    assert.deepEqual(recipe.confirmRecipeUpdate(), expectedAction)
+    const expectedAction = { id: 'foo', isSaving: false, type: recipe.CONFIRM_RECIPE_UPDATE }
+    assert.deepEqual(recipe.confirmRecipeUpdate('foo'), expectedAction)
   })
 })
