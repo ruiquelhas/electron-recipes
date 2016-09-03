@@ -1,5 +1,5 @@
 const React = require('react')
-const { recipe } = require('../actions')
+const { recipe } = require('../store/actions')
 const store = require('../store')
 
 function FavoriteToggle ({ id, isSaving, favorite }) {

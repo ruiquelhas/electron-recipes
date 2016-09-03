@@ -1,7 +1,7 @@
 const App = require('./components')
 const React = require('react')
 const ReactDOM = require('react-dom')
-const { recipes } = require('./actions')
+const { recipes } = require('./store/actions')
 const pkg = require('../package.json')
 const store = require('./store')
 const database = require('./database')
@@ -10,7 +10,7 @@ const render = () => {
   const state = store.getState()
 
   if (state.recipes && state.recipes.error) {
-    return console.error(state.recipes.error.message)
+    return console.error(state.recipes.payload.message)
   }
 
   ReactDOM.render(
