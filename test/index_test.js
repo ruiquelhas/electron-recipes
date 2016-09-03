@@ -16,8 +16,8 @@ describe('electron-recipes', function () {
         path.join(__dirname, '..', 'main.js')
       ],
       path: path.join(__dirname, '..', 'node_modules', '.bin', 'electron'),
-      startTimeout: 15000,
-      waitTimeout: 20000
+      startTimeout: 10000,
+      waitTimeout: 10000
     })
 
     return db.destroy()
@@ -99,14 +99,17 @@ describe('electron-recipes', function () {
             assert.equal(attr, null)
           })
           .click('.favoriteToggle')
-          .then(() => {
-            return app.stop()
+          .waitUntil(() => {
+            return app.client
+              .getAttribute('.favoriteToggle', 'data-up-to-date')
+              .then(attr => attr === 'true')
           })
           .then(() => {
-            return app.start()
+            return app.restart()
           })
           .then(() => {
-            return app.client.waitUntilWindowLoaded().getAttribute('.favoriteToggle', 'checked')
+            return app.client.waitUntilWindowLoaded()
+              .getAttribute('.favoriteToggle', 'checked')
           })
           .then(attr => {
             assert.equal(attr, 'true')

@@ -24,7 +24,7 @@ describe('<RecipeList />', () => {
   })
 
   it('renders the list components with the correct properties', () => {
-    const recipe = { description: 'bar', level: 'qux', favorite: false, id: 'foo', ingredients: [], title: 'baz' }
+    const recipe = { description: 'bar', level: 'qux', favorite: false, id: 'foo', ingredients: [], isSaving: false, title: 'baz' }
     const wrapper = enzyme.shallow(<RecipeList recipes={[recipe]} />)
     assert.deepEqual(wrapper.childAt(0).props(), recipe)
   })

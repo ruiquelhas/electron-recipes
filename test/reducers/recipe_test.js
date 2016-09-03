@@ -18,9 +18,9 @@ describe('recipe reducer', () => {
   })
 
   it('returns a new state when a recipe is updated in the database', () => {
-    const stateBefore = { favorite: true }
-    const action = { type: CONFIRM_RECIPE_UPDATE }
-    const stateAfter = { isSaving: true, favorite: true }
+    const stateBefore = { id: 'foo', isSaving: true, favorite: true }
+    const action = { id: 'foo', type: CONFIRM_RECIPE_UPDATE }
+    const stateAfter = { id: 'foo', isSaving: false, favorite: true }
 
     deepFreeze(stateBefore)
     deepFreeze(action)

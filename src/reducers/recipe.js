@@ -16,6 +16,10 @@ module.exports = function (state = { isSaving: false }, action) {
         favorite: !state.favorite
       })
     case CONFIRM_RECIPE_UPDATE:
+      if (state.id !== action.id) {
+        return state
+      }
+
       return Object.assign({}, state, {
         isSaving: false
       })
