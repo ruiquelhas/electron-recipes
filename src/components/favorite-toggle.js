@@ -9,7 +9,7 @@ function FavoriteToggle ({ id, isSaving, favorite }) {
         data-up-to-date={!isSaving}
         className='favoriteToggle'
         type='checkbox'
-        checked={favorite ? 'checked' : ''}
+        defaultChecked={favorite}
         onChange={(ev) => store.dispatch(recipe.updateFavoriteFlag(id, ev.target.checked))}
       /> Favorite
     </div>
