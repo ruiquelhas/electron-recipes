@@ -1,5 +1,6 @@
 const DifficultyFilterToggleList = require('./difficulty-filter-toggle-list')
 const FavoriteFilterTagList = require('./favorite-filter-tag-list')
+const IngredientFilterInput = require('./ingredient-filter-input')
 const React = require('react')
 const RecipeList = require('./recipe-list')
 const Title = require('./title')
@@ -15,6 +16,8 @@ module.exports = function ({ title, recipes, filters }) {
         <FavoriteFilterTagList />
         <h3>Difficulty</h3>
         <DifficultyFilterToggleList />
+        <h3>Ingredients</h3>
+        <IngredientFilterInput />
       </fieldset>
       <RecipeList recipes={filter(recipes.items, filters)} />
     </div>

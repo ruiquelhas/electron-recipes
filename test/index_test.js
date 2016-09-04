@@ -167,19 +167,25 @@ describe('electron-recipes', function () {
           // Show both favorite and regular recipes
           return app.client.click('#favoriteFilterTag_SHOW_ALL')
         })
-        .elements('.recipe')
+        .then(() => {
+          return app.client.elements('.recipe')
+        })
         .then(({ value }) => {
           assert.equal(value.length, 1)
           // Show favorite recipes
           return app.client.click('#favoriteFilterTag_SHOW_FAVORITES')
         })
-        .elements('.recipe')
+        .then(() => {
+          return app.client.elements('.recipe')
+        })
         .then(({ value }) => {
           assert.equal(value.length, 0)
           // Show regular recipes
           return app.client.click('#favoriteFilterTag_SHOW_REGULARS')
         })
-        .elements('.recipe')
+        .then(() => {
+          return app.client.elements('.recipe')
+        })
         .then(({ value }) => {
           assert(value.length, 1)
         })
@@ -207,37 +213,110 @@ describe('electron-recipes', function () {
           // Hide "Very Easy" recipes
           return app.client.click('#difficultyFilterToggle_VERY_EASY')
         })
-        .elements('.recipe')
+        .then(() => {
+          return app.client.elements('.recipe')
+        })
         .then(({ value }) => {
           assert.equal(value.length, 1)
           // Hide "Easy" recipes
           return app.client.click('#difficultyFilterToggle_EASY')
         })
-        .elements('.recipe')
+        .then(() => {
+          return app.client.elements('.recipe')
+        })
         .then(({ value }) => {
           assert.equal(value.length, 0)
           // Hide "Average" recipes
           return app.client.click('#difficultyFilterToggle_AVERAGE')
         })
-        .elements('.recipe')
+        .then(() => {
+          return app.client.elements('.recipe')
+        })
         .then(({ value }) => {
           assert.equal(value.length, 0)
           // Hide "Hard" recipes
           return app.client.click('#difficultyFilterToggle_HARD')
         })
-        .elements('.recipe')
+        .then(() => {
+          return app.client.elements('.recipe')
+        })
         .then(({ value }) => {
           assert.equal(value.length, 0)
           // Hide "Very Hard" recipes
           return app.client.click('#difficultyFilterToggle_VERY_HARD')
         })
-        .elements('.recipe')
+        .then(() => {
+          return app.client.elements('.recipe')
+        })
         .then(({ value }) => {
           assert.equal(value.length, 0)
           // Show "Easy" recipes
           return app.client.click('#difficultyFilterToggle_EASY')
         })
-        .elements('.recipe')
+        .then(() => {
+          return app.client.elements('.recipe')
+        })
+        .then(({ value }) => {
+          assert.equal(value.length, 1)
+        })
+    })
+  })
+
+  describe('filter list of recipes by ingredient name', () => {
+    beforeEach(() => {
+      app = new Application(options)
+
+      return seeder.single({ ingredients: ['foo', 'bar'] })
+        .then(() => {
+          return app.start()
+        })
+    })
+
+    it('applies all filters for the existing recipe', () => {
+      return app.client
+        .waitUntilWindowLoaded()
+        .then(() => {
+          return app.client.elements('.recipe')
+        })
+        .then(({ value }) => {
+          assert.equal(value.length, 1)
+          // Show recipes with ingredients "foo" or "bar"
+          return app.client.setValue('#ingredientFilterInput', 'foo, bar')
+        })
+        .then(() => {
+          return app.client.waitUntil(
+            app.client.getValue('#ingredientFilterInput').then(value => value === 'foo, bar')
+          )
+        })
+        .then(() => {
+          return app.client.elements('.recipe')
+        })
+        .then(({ value }) => {
+          assert.equal(value.length, 1)
+          // Show recipes with ingredients "baz"
+          return app.client.setValue('#ingredientFilterInput', 'baz')
+        })
+        .then(() => {
+          return app.client.waitUntil(
+            app.client.getValue('#ingredientFilterInput').then(value => value === 'baz')
+          )
+        })
+        .then(() => {
+          return app.client.elements('.recipe')
+        })
+        .then(({ value }) => {
+          assert.equal(value.length, 0)
+          // Remove ingredient filter
+          return app.client.setValue('#ingredientFilterInput', 'bar')
+        })
+        .then(() => {
+          return app.client.waitUntil(
+            app.client.getValue('#ingredientFilterInput').then(value => value === 'bar')
+          )
+        })
+        .then(() => {
+          return app.client.elements('.recipe')
+        })
         .then(({ value }) => {
           assert.equal(value.length, 1)
         })

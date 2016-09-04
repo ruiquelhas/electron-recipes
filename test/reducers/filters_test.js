@@ -38,4 +38,15 @@ describe('filters reducer', () => {
 
     assert(reducer(stateBefore, action), stateAfter)
   })
+
+  it('returns a new state when filtering by ingredient name', () => {
+    const stateBefore = { ingredients: [] }
+    const action = filters.setIngredientFilter('foo, bar')
+    const stateAfter = { ingredients: ['foo', 'bar'] }
+
+    deepFreeze(stateBefore)
+    deepFreeze(action)
+
+    assert(reducer(stateBefore, action), stateAfter)
+  })
 })
