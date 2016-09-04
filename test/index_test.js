@@ -129,20 +129,17 @@ describe('electron-recipes', function () {
         })
         .then(attr => {
           assert.equal(attr, null)
+          return app.client.click('.favoriteToggle')
         })
-        .click('.favoriteToggle')
         .then(() => {
           return app.client.getAttribute('.favoriteToggle', 'checked')
         })
         .then(attr => {
           assert.equal(attr, 'true')
+          return app.client.waitUntil(
+            app.client.getAttribute('.favoriteToggle', 'data-up-to-date').then(atttribute => atttribute === 'true')
+          )
         })
-        .waitUntil(() => {
-          return app.client.getAttribute('.favoriteToggle', 'data-up-to-date')
-        })
-        .then(attr => {
-          return attr === 'true'
-        }, 5000)
     })
   })
 

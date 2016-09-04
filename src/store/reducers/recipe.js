@@ -2,7 +2,7 @@ const { handleActions } = require('redux-actions')
 
 module.exports = handleActions({
   CONFIRM_RECIPE_UPDATE (state, action) {
-    if (!state.id !== action.payload.id) {
+    if (state.id !== action.payload.id) {
       return state
     }
 
