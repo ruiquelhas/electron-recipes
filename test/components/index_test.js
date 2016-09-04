@@ -1,5 +1,6 @@
 /* global describe, it */
 
+const DifficultyFilterToggleList = require('../../src/components/difficulty-filter-toggle-list')
 const FavoriteFilterTagList = require('../../src/components/favorite-filter-tag-list')
 const React = require('react')
 const RecipeList = require('../../src/components/recipe-list')
@@ -24,9 +25,19 @@ describe('<RecipesApp />', () => {
     assert.equal(wrapper.childAt(0).prop('text'), 'foo')
   })
 
-  it('renders a <FavoriteFilterTagList /> component as the second element', () => {
+  it('renders a `fieldset` component as the second element', () => {
     const wrapper = enzyme.shallow(<RecipesApp title='foo' recipes={{}} />)
-    assert.equal(wrapper.childAt(1).type(), FavoriteFilterTagList)
+    assert.ok(wrapper.childAt(1).is('fieldset'))
+  })
+
+  it('renders a <FavoriteFilterTagList /> in the fieldset', () => {
+    const wrapper = enzyme.shallow(<RecipesApp title='foo' recipes={{}} />)
+    assert.equal(wrapper.childAt(1).children().filterWhere(component => component.type() === FavoriteFilterTagList).length, 1)
+  })
+
+  it('renders a <DifficultyFilterToggleList /> in the fieldset', () => {
+    const wrapper = enzyme.shallow(<RecipesApp title='foo' recipes={{}} />)
+    assert.equal(wrapper.childAt(1).children().filterWhere(component => component.type() === DifficultyFilterToggleList).length, 1)
   })
 
   it('renders a <RecipeList /> component as the second element', () => {
@@ -35,8 +46,9 @@ describe('<RecipesApp />', () => {
   })
 
   it('renders the <RecipeList /> component with the correct properties', () => {
-    const recipes = { items: [{ foo: 'bar' }] }
-    const wrapper = enzyme.shallow(<RecipesApp title='foo' recipes={recipes} />)
-    assert.equal(wrapper.childAt(2).prop('recipes'), recipes.items)
+    const recipes = { items: [{ difficulty: 'bar' }] }
+    const filters = { difficulty: ['foo', 'bar', 'baz', 'qux', 'quuux'] }
+    const wrapper = enzyme.shallow(<RecipesApp title='foo' filters={filters} recipes={recipes} />)
+    assert.deepEqual(wrapper.childAt(2).prop('recipes'), recipes.items)
   })
 })

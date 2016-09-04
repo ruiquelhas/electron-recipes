@@ -6,9 +6,9 @@ function FavoriteFilterTagList () {
     <p className='favoriteFilterTagList'>Show:
       {' '}
       <FavoriteFilterTag filter='SHOW_ALL'> All</FavoriteFilterTag>
-      {' '}
+      {' | '}
       <FavoriteFilterTag filter='SHOW_FAVORITES'> Favorites</FavoriteFilterTag>
-      {' '}
+      {' | '}
       <FavoriteFilterTag filter='SHOW_REGULARS'> Regulars</FavoriteFilterTag>
     </p>
   )

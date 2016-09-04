@@ -4,7 +4,7 @@ const store = require('../store')
 
 function FavoriteToggle ({ id, isSaving, favorite }) {
   return (
-    <div className='favouriteToggleContainer'>
+    <p className='favouriteToggleContainer'>
       <input
         data-up-to-date={!isSaving}
         className='favoriteToggle'
@@ -12,7 +12,7 @@ function FavoriteToggle ({ id, isSaving, favorite }) {
         defaultChecked={favorite}
         onChange={(ev) => store.dispatch(recipe.updateFavoriteFlag(id, ev.target.checked))}
       /> Favorite
-    </div>
+    </p>
   )
 }
 

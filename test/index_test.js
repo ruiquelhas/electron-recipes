@@ -156,35 +156,90 @@ describe('electron-recipes', function () {
         })
     })
 
-    it('applies all filters for the existing recipe', () => {
-      let filters
-
+    it('applies the filter for the existing recipe', () => {
       return app.client
         .waitUntilWindowLoaded()
         .then(() => {
-          return app.client.elements('.favoriteFilterTagList > a')
+          return app.client.elements('.recipe')
         })
         .then(({ value }) => {
-          assert.equal(value.length, 3)
-          filters = value
-          // SHOW_ALL
-          return app.client.elementIdClick(filters[0].ELEMENT)
+          assert.equal(value.length, 1)
+          // Show both favorite and regular recipes
+          return app.client.click('#favoriteFilterTag_SHOW_ALL')
         })
         .elements('.recipe')
         .then(({ value }) => {
           assert.equal(value.length, 1)
-          // SHOW_FAVORITES
-          return app.client.elementIdClick(filters[1].ELEMENT)
+          // Show favorite recipes
+          return app.client.click('#favoriteFilterTag_SHOW_FAVORITES')
         })
         .elements('.recipe')
         .then(({ value }) => {
           assert.equal(value.length, 0)
-          // SHOW_REGULARS
-          return app.client.elementIdClick(filters[2].ELEMENT)
+          // Show regular recipes
+          return app.client.click('#favoriteFilterTag_SHOW_REGULARS')
         })
         .elements('.recipe')
         .then(({ value }) => {
           assert(value.length, 1)
+        })
+    })
+  })
+
+  describe('filter list of recipes by difficulty', () => {
+    beforeEach(() => {
+      app = new Application(options)
+
+      return seeder.single({ difficulty: 2 })
+        .then(() => {
+          return app.start()
+        })
+    })
+
+    it('applies all filters for the existing recipe', () => {
+      return app.client
+        .waitUntilWindowLoaded()
+        .then(() => {
+          return app.client.elements('.recipe')
+        })
+        .then(({ value }) => {
+          assert.equal(value.length, 1)
+          // Hide "Very Easy" recipes
+          return app.client.click('#difficultyFilterToggle_VERY_EASY')
+        })
+        .elements('.recipe')
+        .then(({ value }) => {
+          assert.equal(value.length, 1)
+          // Hide "Easy" recipes
+          return app.client.click('#difficultyFilterToggle_EASY')
+        })
+        .elements('.recipe')
+        .then(({ value }) => {
+          assert.equal(value.length, 0)
+          // Hide "Average" recipes
+          return app.client.click('#difficultyFilterToggle_AVERAGE')
+        })
+        .elements('.recipe')
+        .then(({ value }) => {
+          assert.equal(value.length, 0)
+          // Hide "Hard" recipes
+          return app.client.click('#difficultyFilterToggle_HARD')
+        })
+        .elements('.recipe')
+        .then(({ value }) => {
+          assert.equal(value.length, 0)
+          // Hide "Very Hard" recipes
+          return app.client.click('#difficultyFilterToggle_VERY_HARD')
+        })
+        .elements('.recipe')
+        .then(({ value }) => {
+          assert.equal(value.length, 0)
+          // Show "Easy" recipes
+          return app.client.click('#difficultyFilterToggle_EASY')
+        })
+        .elements('.recipe')
+        .then(({ value }) => {
+          assert.equal(value.length, 1)
         })
     })
   })
