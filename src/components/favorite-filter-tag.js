@@ -4,10 +4,14 @@ const store = require('../store')
 
 function FavoriteFilterTag ({ filter, children }) {
   return (
-    <a href='#' onClick={event => {
-      event.preventDefault()
-      store.dispatch(filters.setVisibilityFilter('favorite', filter))
-    }}>
+    <a href='#'
+      id={`favoriteFilterTag_${filter}`}
+      className='favoriteFilterTag'
+      onClick={event => {
+        event.preventDefault()
+        store.dispatch(filters.setFavoriteFilter(filter))
+      }}
+    >
       {children}
     </a>
   )
