@@ -2,6 +2,7 @@
 
 const DifficultyFilterToggleList = require('../../src/components/difficulty-filter-toggle-list')
 const FavoriteFilterTagList = require('../../src/components/favorite-filter-tag-list')
+const IngredientFilterInput = require('../../src/components/ingredient-filter-input')
 const React = require('react')
 const RecipeList = require('../../src/components/recipe-list')
 const RecipesApp = require('../../src/components')
@@ -40,6 +41,11 @@ describe('<RecipesApp />', () => {
     assert.equal(wrapper.childAt(1).children().filterWhere(component => component.type() === DifficultyFilterToggleList).length, 1)
   })
 
+  it('renders a <IngredientFilterInput /> in the fieldset', () => {
+    const wrapper = enzyme.shallow(<RecipesApp title='foo' recipes={{}} />)
+    assert.equal(wrapper.childAt(1).children().filterWhere(component => component.type() === IngredientFilterInput).length, 1)
+  })
+
   it('renders a <RecipeList /> component as the second element', () => {
     const wrapper = enzyme.shallow(<RecipesApp title='foo' recipes={{}} />)
     assert.equal(wrapper.childAt(2).type(), RecipeList)
@@ -47,7 +53,7 @@ describe('<RecipesApp />', () => {
 
   it('renders the <RecipeList /> component with the correct properties', () => {
     const recipes = { items: [{ difficulty: 'bar' }] }
-    const filters = { difficulty: ['foo', 'bar', 'baz', 'qux', 'quuux'] }
+    const filters = { difficulty: ['foo', 'bar', 'baz', 'qux', 'quuux'], ingredients: [] }
     const wrapper = enzyme.shallow(<RecipesApp title='foo' filters={filters} recipes={recipes} />)
     assert.deepEqual(wrapper.childAt(2).prop('recipes'), recipes.items)
   })
