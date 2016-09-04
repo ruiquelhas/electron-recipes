@@ -23,7 +23,8 @@ module.exports = handleActions({
   }),
 
   REQUEST_RECIPES: (state, action) => Object.assign({}, state, {
-    isFetching: true
+    isFetching: true,
+    items: []
   }),
 
   TOGGLE_FAVORITE: map

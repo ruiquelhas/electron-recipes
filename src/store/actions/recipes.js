@@ -1,5 +1,6 @@
 const { createAction } = require('redux-actions')
 const db = require('../../database')
+const uuid = require('uuid')
 
 const displayRecipeLevel = createAction('DISPLAY_RECIPE_LEVEL', () => ({
   levels: ['Very Easy', 'Easy', 'Average', 'Hard', 'Very Hard']
@@ -34,10 +35,28 @@ const requestRecipes = createAction('REQUEST_RECIPES', () => ({
   isFetching: true
 }))
 
+function saveRecipe (data) {
+  const recipe = Object.assign({}, data, {
+    favorite: false,
+    id: uuid.v4()
+  })
+
+  return function (dispatch) {
+    return db.put(recipe.id, recipe)
+      .then(() => {
+        return dispatch(fetchRecipes())
+      })
+      .catch(error => {
+        return dispatch(fetchRecipes(error))
+      })
+  }
+}
+
 module.exports = {
   displayRecipeLevel,
   fetchRecipes,
   receiveRecipe,
   receiveRecipes,
-  requestRecipes
+  requestRecipes,
+  saveRecipe
 }

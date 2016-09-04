@@ -319,4 +319,53 @@ describe('electron-recipes', function () {
         })
     })
   })
+
+  describe('create a new recipe', () => {
+    beforeEach(() => {
+      app = new Application(options)
+
+      return app.start()
+    })
+
+    it('saves the recipe to the database and refreshes the list', () => {
+      return app.client
+        .waitUntilWindowLoaded()
+        .then(() => {
+          return app.client.elements('.recipe')
+        })
+        .then(({ value }) => {
+          assert.equal(value.length, 0)
+          // Set recipe title
+          return app.client.setValue('#recipeTitleInput', 'foobar')
+        })
+        .then(() => {
+          // Set recipe description
+          return app.client.setValue('#recipeDescriptionTextArea', 'lorem ipsum dolor sit amet')
+        })
+        .then(() => {
+          return app.client.setValue('#recipeIngredientInput', 'foo')
+        })
+        .then(() => {
+          return app.client.click('#recipeIngredientInputAddButton')
+        })
+        .then(() => {
+          return app.client.click('#saveRecipeButton')
+        })
+        .then(() => {
+          return app.client.waitUntil(
+            app.client.getAttribute('#recipeList', 'data-is-fetching').then(attribute => attribute === 'false')
+          )
+        })
+        .then(() => {
+          return app.client.elements('.recipe')
+        })
+        .then(({ value }) => {
+          assert.equal(value.length, 1)
+          return app.client.getText('.recipeTitle')
+        })
+        .then(text => {
+          assert.equal(text, 'foobar')
+        })
+    })
+  })
 })

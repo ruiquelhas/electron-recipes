@@ -1,6 +1,8 @@
 const { createAction } = require('redux-actions')
 const db = require('../../database')
 
+const addIngredient = createAction('ADD_INGREDIENT')
+
 const confirmRecipeUpdate = createAction('CONFIRM_RECIPE_UPDATE', (id) => ({
   id,
   isSaving: false
@@ -30,6 +32,7 @@ function updateFavoriteFlag (id, flag) {
 }
 
 module.exports = {
+  addIngredient,
   confirmRecipeUpdate,
   toggleFavorite,
   updateFavoriteFlag

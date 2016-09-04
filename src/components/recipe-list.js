@@ -1,7 +1,7 @@
 const React = require('react')
 const Recipe = require('./recipe')
 
-function RecipeList ({ recipes = [] }) {
+function RecipeList ({ isFetching, recipes = [] }) {
   const items = recipes.map(({ description, favorite, id, isSaving, ingredients, level, title }) => {
     return <Recipe
       description={description}
@@ -15,7 +15,7 @@ function RecipeList ({ recipes = [] }) {
     />
   })
 
-  return <ul className='recipeList' style={{ listStyleType: 'none', margin: 0, padding: 0 }}>{items}</ul>
+  return <ul data-is-fetching={isFetching} id='recipeList' className='recipeList' style={{ listStyleType: 'none', margin: 0, padding: 0 }}>{items}</ul>
 }
 
 RecipeList.propTypes = {
