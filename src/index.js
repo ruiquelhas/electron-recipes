@@ -18,6 +18,7 @@ const render = () => {
       title={`${pkg.name} (v${pkg.version})`}
       recipes={state.recipes}
       filters={state.filters}
+      newRecipe={state.recipe}
     />,
     document.getElementById('root')
   )
