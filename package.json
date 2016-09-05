@@ -1,6 +1,6 @@
 {
   "name": "electron-recipes",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Recipe management app built in electron",
   "keywords": [
     "electron",
