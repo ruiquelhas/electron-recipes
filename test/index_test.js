@@ -1,8 +1,8 @@
 /* global afterEach, before, beforeEach, describe, it */
 
 const { Application } = require('spectron')
-const { seeder } = require('../src/helpers')
-const db = require('../src/database')
+const { seeder } = require('helpers')
+const db = require('database')
 const assert = require('assert')
 const path = require('path')
 const pkg = require('../package.json')
@@ -15,7 +15,10 @@ describe('electron-recipes', function () {
       args: [
         path.join(__dirname, '..', 'main.js')
       ],
-      path: path.join(__dirname, '..', 'node_modules', '.bin', 'electron')
+      path: path.join(__dirname, '..', 'node_modules', '.bin', 'electron'),
+      quitTimeout: 5000,
+      startTimeout: 10000,
+      waitTimeout: 20000
     }
   })
 
@@ -46,7 +49,7 @@ describe('electron-recipes', function () {
         .then(count => {
           assert.equal(count, 1)
         })
-        .getText('.title')
+        .getText('#title')
         .then(text => {
           assert.equal(text, `${pkg.name} (v${pkg.version})`)
         })
@@ -137,7 +140,9 @@ describe('electron-recipes', function () {
         .then(attr => {
           assert.equal(attr, 'true')
           return app.client.waitUntil(
-            app.client.getAttribute('.favoriteToggle', 'data-up-to-date').then(atttribute => atttribute === 'true')
+            app.client
+              .getAttribute('.favoriteToggle', 'data-up-to-date')
+              .then(atttribute => atttribute === 'true')
           )
         })
     })
@@ -282,7 +287,9 @@ describe('electron-recipes', function () {
         })
         .then(() => {
           return app.client.waitUntil(
-            app.client.getValue('#ingredientFilterInput').then(value => value === 'foo, bar')
+            app.client
+              .getValue('#ingredientFilterInput')
+              .then(value => value === 'foo, bar')
           )
         })
         .then(() => {
@@ -295,7 +302,9 @@ describe('electron-recipes', function () {
         })
         .then(() => {
           return app.client.waitUntil(
-            app.client.getValue('#ingredientFilterInput').then(value => value === 'baz')
+            app.client
+              .getValue('#ingredientFilterInput')
+              .then(value => value === 'baz')
           )
         })
         .then(() => {
@@ -308,7 +317,9 @@ describe('electron-recipes', function () {
         })
         .then(() => {
           return app.client.waitUntil(
-            app.client.getValue('#ingredientFilterInput').then(value => value === 'bar')
+            app.client
+              .getValue('#ingredientFilterInput')
+              .then(value => value === 'bar')
           )
         })
         .then(() => {
@@ -353,7 +364,9 @@ describe('electron-recipes', function () {
         })
         .then(() => {
           return app.client.waitUntil(
-            app.client.getAttribute('#recipeList', 'data-is-fetching').then(attribute => attribute === 'false')
+            app.client
+              .getAttribute('#recipeList', 'data-up-to-date')
+              .then(attribute => attribute === 'true')
           )
         })
         .then(() => {

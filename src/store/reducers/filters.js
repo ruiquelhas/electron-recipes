@@ -5,22 +5,25 @@ module.exports = handleActions({
     favorite: action.payload
   }),
 
-  SET_DIFFULTY_FILTER: (state, action) => Object.assign({}, state, {
-    difficulty: action.payload.status
-      ? [...state.difficulty, action.payload.filter]
-      : [
-        ...state.difficulty.slice(0, state.difficulty.indexOf(action.payload.filter)),
-        ...state.difficulty.slice(state.difficulty.indexOf(action.payload.filter) + 1)
-      ]
-  }),
-
-  SET_INGREDIENT_FILTER: (state, action) => Object.assign({}, state, {
+  UPDATE_INGREDIENT_FILTER: (state, action) => Object.assign({}, state, {
     ingredients: !action.payload.filter[0].length
       ? []
       : action.payload.filter
+  }),
+
+  TOGGLE_DIFFICULTY_FILTER: (state, action) => Object.assign({}, state, {
+    difficulty: Object.assign({}, state.difficulty, {
+      [action.payload]: !state.difficulty[action.payload]
+    })
   })
 }, {
+  difficulty: {
+    1: true,
+    2: true,
+    3: true,
+    4: true,
+    5: true
+  },
   favorite: 'SHOW_ALL',
-  difficulty: [1, 2, 3, 4, 5],
   ingredients: []
 })

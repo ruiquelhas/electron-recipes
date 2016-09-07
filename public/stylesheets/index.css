@@ -1,0 +1,50 @@
+body {
+  color: #566b78;
+  font-family: "Helvetica", "Arial", sans-serif;
+  line-height: 1.5;
+  margin: 0 auto;
+  max-width: 50em;
+  padding: 4em 1em;
+}
+
+h2 {
+  margin-top: 1em;
+  padding-top: 1em;
+}
+
+h1, h2, strong {
+  color: #333;
+}
+
+a, a.inactive {
+  color: #e81c4f;
+  text-decoration: underline;
+}
+
+a.active {
+  color: green;
+  text-decoration: none;
+}
+
+label {
+  display: block;
+}
+
+form > div {
+  line-height: 1.5;
+  margin-top: 1em;
+}
+
+input[type="text"], select {
+  height: 1.5em;
+  width: 350px;
+}
+
+textarea {
+  height: 15em;
+  width: 350px;
+}
+
+.filterOption, .inputAuxButton {
+  margin-left: .4em;
+}
