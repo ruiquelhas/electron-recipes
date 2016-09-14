@@ -18,7 +18,7 @@ describe('electron-recipes', function () {
       path: path.join(__dirname, '..', 'node_modules', '.bin', 'electron'),
       quitTimeout: 5000,
       startTimeout: 10000,
-      waitTimeout: 20000
+      waitTimeout: 10000
     }
   })
 
@@ -48,8 +48,8 @@ describe('electron-recipes', function () {
         })
         .then(count => {
           assert.equal(count, 1)
+          return app.client.getText('#title')
         })
-        .getText('#title')
         .then(text => {
           assert.equal(text, `${pkg.name} (v${pkg.version})`)
         })
