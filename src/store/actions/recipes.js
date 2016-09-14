@@ -11,7 +11,9 @@ function fetchRecipes (timestamp) {
   return function (dispatch) {
     dispatch(requestRecipes())
 
-    return db.hook(dispatch, receiveRecipe)
+    const callback = (recipe) => dispatch(receiveRecipe(recipe))
+
+    return db.hook(callback)
       .then(() => {
         dispatch(displayRecipeLevel())
         dispatch(receiveRecipes(timestamp))

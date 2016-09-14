@@ -70,7 +70,7 @@ function get (key) {
   })
 }
 
-function hook (dispatcher, action) {
+function hook (callback) {
   return new Promise((resolve, reject) => {
     if (!database || typeof database.createValueStream !== 'function') {
       return reject(new Error('connection not available'))
@@ -78,7 +78,7 @@ function hook (dispatcher, action) {
 
     database.createValueStream()
       .on('data', (value) => {
-        return dispatcher(action(value))
+        return callback(value)
       })
       .on('error', (error) => {
         return reject(error)
