@@ -1,6 +1,6 @@
 /* global afterEach, before, describe, it */
 
-const FavoriteFilterTag = require('components/presentational/favorite-filter-tag')
+const FavoriteFilterTag = require('src/components/presentational/favorite-filter-tag')
 const React = require('react')
 const assert = require('assert')
 const enzyme = require('enzyme')

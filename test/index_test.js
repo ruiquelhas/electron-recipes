@@ -1,11 +1,11 @@
 /* global afterEach, before, beforeEach, describe, it */
 
 const { Application } = require('spectron')
-const { seeder } = require('../src/helpers')
-const db = require('../src/database')
+const { seeder } = require('src/helpers')
+const db = require('src/database')
 const assert = require('assert')
 const path = require('path')
-const pkg = require('../package.json')
+const pkg = require('package.json')
 
 describe('electron-recipes', function () {
   let app, options

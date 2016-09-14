@@ -1,8 +1,8 @@
 /* global describe, it */
 
 const React = require('react')
-const Recipe = require('components/presentational/recipe')
-const RecipeList = require('components/presentational/recipe-list')
+const Recipe = require('src/components/presentational/recipe')
+const RecipeList = require('src/components/presentational/recipe-list')
 const assert = require('assert')
 const enzyme = require('enzyme')
 

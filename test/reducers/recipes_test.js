@@ -1,7 +1,7 @@
 /* global describe, it */
 
-const { recipe, recipes } = require('store/actions')
-const reducer = require('store/reducers/recipes')
+const { recipe, recipes } = require('src/store/actions')
+const reducer = require('src/store/reducers/recipes')
 const assert = require('assert')
 const deepFreeze = require('deep-freeze')
 

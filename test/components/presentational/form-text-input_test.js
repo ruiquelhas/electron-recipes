@@ -1,6 +1,6 @@
 /* global afterEach, before, describe, it */
 
-const FormTextInput = require('components/presentational/form-text-input')
+const FormTextInput = require('src/components/presentational/form-text-input')
 const React = require('react')
 const assert = require('assert')
 const enzyme = require('enzyme')

@@ -1,6 +1,6 @@
 /* global afterEach, before, describe, it */
 
-const FormSubmitButton = require('components/presentational/form-submit-button')
+const FormSubmitButton = require('src/components/presentational/form-submit-button')
 const React = require('react')
 const assert = require('assert')
 const enzyme = require('enzyme')

@@ -1,6 +1,6 @@
 /* global afterEach, before, describe, it */
 
-const FormTextArea = require('components/presentational/form-text-area')
+const FormTextArea = require('src/components/presentational/form-text-area')
 const React = require('react')
 const assert = require('assert')
 const enzyme = require('enzyme')

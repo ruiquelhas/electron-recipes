@@ -1,7 +1,7 @@
 /* global describe, it */
 
 const React = require('react')
-const Title = require('components/presentational/title')
+const Title = require('src/components/presentational/title')
 const assert = require('assert')
 const enzyme = require('enzyme')
 

@@ -1,6 +1,6 @@
 /* global afterEach, before, describe, it */
 
-const FavoriteToggle = require('components/presentational/favorite-toggle')
+const FavoriteToggle = require('src/components/presentational/favorite-toggle')
 const React = require('react')
 const assert = require('assert')
 const enzyme = require('enzyme')

@@ -1,6 +1,6 @@
 /* global describe, it */
 
-const Ingredient = require('components/presentational/ingredient')
+const Ingredient = require('src/components/presentational/ingredient')
 const React = require('react')
 const assert = require('assert')
 const enzyme = require('enzyme')

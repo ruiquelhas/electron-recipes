@@ -1,9 +1,9 @@
 /* global afterEach, before, describe, it */
 
-const actions = require('store/actions/recipe')
+const actions = require('src/store/actions/recipe')
 const assert = require('assert')
 const configureStore = require('redux-mock-store').default
-const db = require('database')
+const db = require('src/database')
 const thunk = require('redux-thunk').default
 const sinon = require('sinon')
 

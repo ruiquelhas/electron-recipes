@@ -1,6 +1,6 @@
 /* global describe, it */
 
-const actions = require('store/actions/filters')
+const actions = require('src/store/actions/filters')
 const assert = require('assert')
 
 describe('filters actions', () => {

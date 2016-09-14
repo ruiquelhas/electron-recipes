@@ -1,6 +1,6 @@
 /* global afterEach, before, describe, it */
 
-const AddIngredient = require('components/presentational/add-ingredient')
+const AddIngredient = require('src/components/presentational/add-ingredient')
 const React = require('react')
 const assert = require('assert')
 const enzyme = require('enzyme')

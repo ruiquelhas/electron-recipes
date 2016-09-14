@@ -29,7 +29,7 @@
     "prepublish": "chmod -R +x ./bin/",
     "seed": "./bin/seed",
     "start": "npm run compile && ./node_modules/.bin/electron main.js",
-    "test": "npm run compile && NODE_ENV=test NODE_PATH=src mocha $npm_package_options_mocha"
+    "test": "npm run compile && NODE_ENV=test NODE_PATH=. mocha $npm_package_options_mocha"
   },
   "dependencies": {
     "hoek": "^4.0.2",
