@@ -1,7 +1,7 @@
 /* global describe, it */
 
-const { filters } = require('store/actions')
-const reducer = require('store/reducers/filters')
+const { filters } = require('src/store/actions')
+const reducer = require('src/store/reducers/filters')
 const assert = require('assert')
 const deepFreeze = require('deep-freeze')
 

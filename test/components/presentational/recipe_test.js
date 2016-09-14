@@ -1,9 +1,9 @@
 /* global describe, it */
 
-const FavoriteToggle = require('components/presentational/favorite-toggle')
-const IngredientList = require('components/presentational/ingredient-list')
+const FavoriteToggle = require('src/components/presentational/favorite-toggle')
+const IngredientList = require('src/components/presentational/ingredient-list')
 const React = require('react')
-const Recipe = require('components/presentational/recipe')
+const Recipe = require('src/components/presentational/recipe')
 const assert = require('assert')
 const enzyme = require('enzyme')
 

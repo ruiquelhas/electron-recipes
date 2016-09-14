@@ -1,6 +1,6 @@
 /* global afterEach, before, describe, it */
 
-const FormSelect = require('components/presentational/form-select')
+const FormSelect = require('src/components/presentational/form-select')
 const React = require('react')
 const assert = require('assert')
 const enzyme = require('enzyme')

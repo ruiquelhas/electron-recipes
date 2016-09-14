@@ -1,11 +1,11 @@
 /* global afterEach, before, beforeEach, describe, it */
 
 const { Application } = require('spectron')
-const { seeder } = require('helpers')
-const db = require('database')
+const { seeder } = require('src/helpers')
+const db = require('src/database')
 const assert = require('assert')
 const path = require('path')
-const pkg = require('../package.json')
+const pkg = require('package.json')
 
 describe('electron-recipes', function () {
   let app, options
@@ -18,18 +18,18 @@ describe('electron-recipes', function () {
       path: path.join(__dirname, '..', 'node_modules', '.bin', 'electron'),
       quitTimeout: 5000,
       startTimeout: 10000,
-      waitTimeout: 20000
+      waitTimeout: 10000
     }
   })
 
   afterEach(() => {
     if (!app || !app.isRunning()) {
-      return db.destroy()
+      return db.flush()
     }
 
     return app.stop()
       .then(() => {
-        return db.destroy()
+        return db.flush()
       })
   })
 
@@ -48,8 +48,8 @@ describe('electron-recipes', function () {
         })
         .then(count => {
           assert.equal(count, 1)
+          return app.client.getText('#title')
         })
-        .getText('#title')
         .then(text => {
           assert.equal(text, `${pkg.name} (v${pkg.version})`)
         })

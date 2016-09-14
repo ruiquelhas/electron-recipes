@@ -1,9 +1,9 @@
 /* global afterEach, before, describe, it */
 
-const actions = require('store/actions/recipes')
+const actions = require('src/store/actions/recipes')
 const assert = require('assert')
 const configureStore = require('redux-mock-store').default
-const db = require('database')
+const db = require('src/database')
 const thunk = require('redux-thunk').default
 const sinon = require('sinon')
 
@@ -91,13 +91,9 @@ describe('recipes actions', () => {
       }
     }]
 
-    sandbox.stub(db, 'connect').returns(Promise.resolve())
     sandbox.stub(db, 'hook').returns(Promise.resolve())
 
-    return db.connect()
-      .then(() => {
-        return store.dispatch(actions.fetchRecipes(timestamp))
-      })
+    return store.dispatch(actions.fetchRecipes(timestamp))
       .then(() => {
         assert.deepEqual(store.getActions(), expectedActions)
       })
@@ -126,14 +122,10 @@ describe('recipes actions', () => {
       }
     }]
 
-    sandbox.stub(db, 'connect').returns(Promise.resolve())
     sandbox.stub(db, 'hook').returns(Promise.resolve())
     sandbox.stub(db, 'put').returns(Promise.resolve())
 
-    return db.connect()
-      .then(() => {
-        return store.dispatch(actions.saveRecipe({ title: 'foo' }, timestamp))
-      })
+    return store.dispatch(actions.saveRecipe({ title: 'foo' }, timestamp))
       .then(() => {
         assert.deepEqual(store.getActions(), expectedActions)
       })

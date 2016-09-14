@@ -1,7 +1,7 @@
 /* global describe, it */
 
-const DifficultyFilterToggle = require('components/presentational/difficulty-filter-toggle')
-const DifficultyFilterToggleList = require('components/presentational/difficulty-filter-toggle-list')
+const DifficultyFilterToggle = require('src/components/presentational/difficulty-filter-toggle')
+const DifficultyFilterToggleList = require('src/components/presentational/difficulty-filter-toggle-list')
 const React = require('react')
 const assert = require('assert')
 const enzyme = require('enzyme')

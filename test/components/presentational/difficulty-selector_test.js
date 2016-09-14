@@ -1,7 +1,7 @@
 /* global afterEach, before, describe, it */
 
-const DifficultySelector = require('components/presentational/difficulty-selector')
-const FormSelect = require('components/presentational/form-select')
+const DifficultySelector = require('src/components/presentational/difficulty-selector')
+const FormSelect = require('src/components/presentational/form-select')
 const React = require('react')
 const assert = require('assert')
 const enzyme = require('enzyme')

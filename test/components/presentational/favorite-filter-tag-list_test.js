@@ -1,7 +1,7 @@
 /* global describe, it */
 
-const FavoriteFilterTag = require('components/presentational/favorite-filter-tag')
-const FavoriteFilterTagList = require('components/presentational/favorite-filter-tag-list')
+const FavoriteFilterTag = require('src/components/presentational/favorite-filter-tag')
+const FavoriteFilterTagList = require('src/components/presentational/favorite-filter-tag-list')
 const React = require('react')
 const assert = require('assert')
 const enzyme = require('enzyme')

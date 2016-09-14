@@ -1,6 +1,6 @@
 /* global afterEach, before, describe, it */
 
-const IngredientFilterInput = require('components/presentational/ingredient-filter-input')
+const IngredientFilterInput = require('src/components/presentational/ingredient-filter-input')
 const React = require('react')
 const assert = require('assert')
 const enzyme = require('enzyme')

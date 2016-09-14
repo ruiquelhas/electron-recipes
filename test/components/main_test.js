@@ -1,13 +1,13 @@
 /* global describe, it */
 
-const DifficultyFilter = require('components/container/difficulty-filter')
-const FavoriteFilter = require('components/container/favorite-filter')
-const IngredientFilter = require('components/container/ingredient-filter')
-const NewRecipeForm = require('components/container/new-recipe-form')
+const DifficultyFilter = require('src/components/container/difficulty-filter')
+const FavoriteFilter = require('src/components/container/favorite-filter')
+const IngredientFilter = require('src/components/container/ingredient-filter')
+const NewRecipeForm = require('src/components/container/new-recipe-form')
 const React = require('react')
-const RecipeApp = require('components/main')
-const Title = require('components/presentational/title')
-const VisibleRecipeList = require('components/container/visible-recipe-list')
+const RecipeApp = require('src/components/main')
+const Title = require('src/components/presentational/title')
+const VisibleRecipeList = require('src/components/container/visible-recipe-list')
 const assert = require('assert')
 const enzyme = require('enzyme')
 
