@@ -1,4 +1,4 @@
-const { createStore, applyMiddleware } = require('redux')
+const { applyMiddleware, createStore } = require('redux')
 const createLogger = require('redux-logger')
 const reducer = require('./reducers')
 const thunk = require('redux-thunk').default
@@ -13,6 +13,4 @@ const logger = createLogger({
   }
 })
 
-const store = createStore(reducer, applyMiddleware(thunk, logger))
-
-module.exports = store
+module.exports = createStore(reducer, applyMiddleware(thunk, logger))
