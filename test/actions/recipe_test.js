@@ -88,14 +88,10 @@ describe('recipes actions', () => {
       }
     }]
 
-    sandbox.stub(db, 'connect').returns(Promise.resolve())
     sandbox.stub(db, 'get').returns(Promise.resolve({ id: 'foo' }))
     sandbox.stub(db, 'put').returns(Promise.resolve())
 
-    return db.connect()
-      .then(() => {
-        return store.dispatch(actions.updateFavoriteFlag('foo'))
-      })
+    return store.dispatch(actions.updateFavoriteFlag('foo'))
       .then(() => {
         assert.deepEqual(store.getActions(), expectedActions)
       })

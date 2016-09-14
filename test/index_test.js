@@ -1,8 +1,8 @@
 /* global afterEach, before, beforeEach, describe, it */
 
 const { Application } = require('spectron')
-const { seeder } = require('helpers')
-const db = require('database')
+const { seeder } = require('../src/helpers')
+const db = require('../src/database')
 const assert = require('assert')
 const path = require('path')
 const pkg = require('../package.json')
@@ -24,12 +24,12 @@ describe('electron-recipes', function () {
 
   afterEach(() => {
     if (!app || !app.isRunning()) {
-      return db.destroy()
+      return db.flush()
     }
 
     return app.stop()
       .then(() => {
-        return db.destroy()
+        return db.flush()
       })
   })
 
